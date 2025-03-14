@@ -7,16 +7,20 @@ public class GameController : MonoBehaviour
 {
     public Camera cameraA;
     public Camera cameraB;
-    // Start is called before the first frame update
+
     void Start()
     {
         SceneManager.LoadScene("SceneA", LoadSceneMode.Additive);
         SceneManager.LoadScene("SceneB", LoadSceneMode.Additive);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            cameraA.enabled = false;
+            cameraB.targetTexture = null;
+            cameraB.enabled = true; 
+        }
     }
 }
