@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     private LayerMask groundMask;
 
     public Transform groundCheck;          
-    public Transform playerCamera;          
+    public Transform playerCameraRoot;
+    public Camera playerCamera;
 
     private CharacterController controller;
 
@@ -38,7 +39,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            MouseRaycastCheck();
+        }
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -84,7 +89,21 @@ public class PlayerController : MonoBehaviour
         currentXRotation -= mouseY;
         currentXRotation = Mathf.Clamp(currentXRotation, lookXLimit.x, lookXLimit.y);
 
-        playerCamera.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
+        playerCameraRoot.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    private void MouseRaycastCheck()
+    {
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 2f))
+        {
+            if (hit.transform.tag.Equals("Teleporter"))
+            {
+                hit.transform.root.GetComponent<Teleporter>().MovePlayerCamera();
+            }
+        }
     }
 }
