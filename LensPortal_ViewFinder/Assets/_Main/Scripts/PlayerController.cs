@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -20.0f;        
     public float mouseSensitivity = 2.0f; 
     public float lookSmoothness = 0.1f;   
-    public Vector2 lookXLimit;            
+    public Vector2 lookXLimit;
 
     private float currentSpeed;
     private float currentGravity;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
             MouseRaycastCheck();
         }
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
         {
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.transform.tag.Equals("Teleporter"))
             {
-                hit.transform.root.GetComponent<Teleporter>().MovePlayerCamera();
+                hit.transform.parent.parent.parent.GetComponent<Teleporter>().MovePlayerCamera();
             }
         }
     }

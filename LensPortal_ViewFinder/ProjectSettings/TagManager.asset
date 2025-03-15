@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Player
   - Water
   - UI
-  - SceneA
-  - SceneB
-  - 
-  - 
+  - Level0
+  - Level1
+  - Level2
+  - Level3
   - 
   - 
   - 
