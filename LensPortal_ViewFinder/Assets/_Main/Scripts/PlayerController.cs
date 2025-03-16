@@ -20,9 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isGrounded;
     private Vector3 velocity;
-    private float groundDistance = 0.4f;
-    private float groundCheckRadius = 0.3f;
-    private LayerMask groundMask;
 
     public Transform groundCheck;          
     public Transform playerCameraRoot;
@@ -34,7 +31,6 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         currentSpeed = walkSpeed;
-        groundMask = LayerMask.GetMask("Ground");
     }
 
     private void Update()
@@ -95,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private void MouseRaycastCheck()
     {
-        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 2f))
